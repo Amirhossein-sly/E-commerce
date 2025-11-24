@@ -3,8 +3,14 @@ import cartSlice from "../slices/cartSlice";
 import productSlice from "../slices/ProductSlice";
 import searchSlice from "../slices/searchSlice";
 import productFiltersSlice from "../slices/productFiltersSlice";
+import searchFiltersSlice from "../slices/searchFiltersSlice";
 import userSlice from "../slices/userSlice";
 import notificationsSlice from "../slices/notificationsSlice";
+import wishlistSlice from "../slices/wishlistSlice";
+import checkoutSlice from "../slices/checkoutSlice";
+import reviewsSlice from "../slices/reviewsSlice";
+import cartOperationsSlice from "../slices/cartOperationsSlice";
+import uiSlice from "../slices/uiSlice";
 
 const isBrowser = typeof window !== "undefined" && window.localStorage;
 
@@ -31,8 +37,14 @@ const store = configureStore({
     product: productSlice,
     search: searchSlice,
     productFilters: productFiltersSlice,
+    searchFilters: searchFiltersSlice,
     user: userSlice,
     notifications: notificationsSlice,
+    wishlist: wishlistSlice,
+    checkout: checkoutSlice,
+    reviews: reviewsSlice,
+    cartOperations: cartOperationsSlice,
+    ui: uiSlice,
   },
   preloadedState,
 });

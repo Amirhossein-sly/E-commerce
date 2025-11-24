@@ -33,13 +33,17 @@ export default function CategoryPage() {
 
   if (status === "LOADING") {
     return (
-      <h2 className="text-center mt-20 text-lg animate-pulse">Loading...</h2>
+      <div className="pt-[100px] pb-24">
+        <h2 className="text-center mt-20 text-lg animate-pulse text-gray-600 dark:text-gray-400">Loading...</h2>
+      </div>
     );
   }
 
   if (status === "ERROR") {
     return (
-      <h2 className="text-center mt-20 text-red-500">Error loading products</h2>
+      <div className="pt-[100px] pb-24">
+        <h2 className="text-center mt-20 text-red-500 dark:text-red-400">Error loading products</h2>
+      </div>
     );
   }
 
@@ -48,13 +52,13 @@ export default function CategoryPage() {
     : "";
 
   return (
-    <div className="max-w-7xl mx-auto px-6 pt-[100px]">
+    <div className="max-w-7xl mx-auto px-6 pt-[100px] pb-24">
       {/* عنوان دسته‌بندی */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-800 mb-2">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
           {categoryTitle}
         </h1>
-        <p className="text-gray-600">
+        <p className="text-gray-600 dark:text-gray-400">
           {filteredData.length} {filteredData.length === 1 ? "product" : "products"} found
         </p>
       </div>
@@ -62,16 +66,16 @@ export default function CategoryPage() {
       {/* Products Grid */}
       {filteredData.length === 0 ? (
         <div className="text-center mt-20">
-          <h2 className="text-xl text-gray-600 mb-4">No products found in this category</h2>
+          <h2 className="text-xl text-gray-600 dark:text-gray-400 mb-4">No products found in this category</h2>
           <Link
             to="/"
-            className="text-blue-600 hover:text-blue-800 underline"
+            className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300 underline"
           >
             Go back to home
           </Link>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
           {filteredData.map((item, index) => {
             const quantity = getQuantity(item.id);
 

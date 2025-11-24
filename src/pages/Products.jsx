@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useMemo } from "react";
 import ProductCard from "../components/ProductCard";
-import ProductsHeader from "../components/ProductsHeader";
-import ProductsFilters from "../components/ProductsFilters";
-import ProductsEmptyState from "../components/ProductsEmptyState";
+import ProductsHeader from "../components/product/ProductsHeader";
+import ProductsFilters from "../components/product/ProductsFilters";
+import ProductsEmptyState from "../components/product/ProductsEmptyState";
 import { fetchProduct } from "../slices/ProductSlice";
 import { add, updateQuantity } from "../slices/cartSlice";
 import { pushToast } from "../slices/notificationsSlice";
@@ -61,18 +61,18 @@ export default function Products() {
 
   if (status === "LOADING" && data.length === 0) {
     return (
-      <h2 className="text-center mt-20 text-lg animate-pulse">Loading...</h2>
+      <h2 className="text-center mt-20 text-lg animate-pulse text-gray-600 dark:text-gray-400">Loading...</h2>
     );
   }
 
   if (status === "ERROR") {
     return (
-      <h2 className="text-center mt-20 text-red-500">Error loading products</h2>
+      <h2 className="text-center mt-20 text-red-500 dark:text-red-400">Error loading products</h2>
     );
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-6 pt-[120px] pb-16">
+    <div className="max-w-7xl mx-auto px-6 pt-[120px] pb-24">
       <ProductsHeader totalCount={data.length} visibleCount={sortedProducts.length} />
 
       <ProductsFilters
@@ -88,7 +88,7 @@ export default function Products() {
       {sortedProducts.length === 0 ? (
         <ProductsEmptyState onReset={() => dispatch(resetFilters())} />
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
           {sortedProducts.map((item, index) => {
             const quantity = getQuantity(item.id);
 

@@ -7,7 +7,7 @@ export default function CartIcon() {
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
-    <Link to="/cart" className="relative flex items-center hover:text-black transition">
+    <Link to="/cart" className="relative flex items-center text-gray-600 hover:text-black dark:text-gray-400 dark:hover:text-white transition">
       <ShoppingCart size={22} />
       {totalItems > 0 && (
         <span className="absolute -top-2 -right-3 bg-indigo-600 text-white text-xs font-semibold rounded-full px-1.5 py-0.5">

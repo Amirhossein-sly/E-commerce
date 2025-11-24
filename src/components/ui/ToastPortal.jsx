@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { dismissToast } from "../slices/notificationsSlice";
+import { dismissToast } from "../../slices/notificationsSlice";
 import { CheckCircle2, Info, AlertTriangle, XCircle, X } from "lucide-react";
 
 const iconMap = {
@@ -11,10 +11,10 @@ const iconMap = {
 };
 
 const bgMap = {
-  success: "bg-green-50 border-green-200 text-green-800",
-  info: "bg-blue-50 border-blue-200 text-blue-700",
-  warning: "bg-yellow-50 border-yellow-200 text-yellow-800",
-  error: "bg-red-50 border-red-200 text-red-700",
+  success: "bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-700 text-green-800 dark:text-green-400",
+  info: "bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-700 text-blue-700 dark:text-blue-400",
+  warning: "bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-700 text-yellow-800 dark:text-yellow-400",
+  error: "bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-700 text-red-700 dark:text-red-400",
 };
 
 export default function ToastPortal() {

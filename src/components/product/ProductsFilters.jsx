@@ -18,14 +18,14 @@ export default function ProductsFilters({
     totalCount === 0 ? 0 : Math.min(100, Math.round((visibleCount / totalCount) * 100));
 
   return (
-    <section className="bg-white rounded-3xl shadow-lg p-6 mb-12">
+    <section className="bg-white dark:bg-gray-800 rounded-3xl shadow-lg dark:shadow-gray-900/50 p-6 mb-12">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="flex flex-col">
-          <label className="text-sm font-semibold text-gray-600 mb-2">Category</label>
+          <label className="text-sm font-semibold text-gray-600 dark:text-gray-300 mb-2">Category</label>
           <select
             value={selectedCategory}
             onChange={(e) => onCategoryChange?.(e.target.value)}
-            className="border border-gray-200 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="border border-gray-200 dark:border-gray-600 rounded-xl px-4 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 focus:border-indigo-500 dark:focus:border-indigo-400"
           >
             {categories.map((category) => (
               <option key={category} value={category}>
@@ -38,11 +38,11 @@ export default function ProductsFilters({
         </div>
 
         <div className="flex flex-col">
-          <label className="text-sm font-semibold text-gray-600 mb-2">Sort by</label>
+          <label className="text-sm font-semibold text-gray-600 dark:text-gray-300 mb-2">Sort by</label>
           <select
             value={sortBy}
             onChange={(e) => onSortChange?.(e.target.value)}
-            className="border border-gray-200 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="border border-gray-200 dark:border-gray-600 rounded-xl px-4 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 focus:border-indigo-500 dark:focus:border-indigo-400"
           >
             {sortOptions.map((option) => (
               <option key={option.value} value={option.value}>
@@ -53,12 +53,12 @@ export default function ProductsFilters({
         </div>
 
         <div className="flex flex-col justify-end">
-          <p className="text-sm text-gray-500 mb-1">
+          <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">
             Showing {visibleCount} product{visibleCount === 1 ? "" : "s"}
           </p>
-          <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+          <div className="h-2 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
             <div
-              className="h-full bg-indigo-500 transition-all"
+              className="h-full bg-indigo-500 dark:bg-indigo-400 transition-all"
               style={{ width: `${progress}%` }}
             />
           </div>

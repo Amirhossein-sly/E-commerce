@@ -1,13 +1,32 @@
 {
-  "name": "e_commerce",
+  "name": "mystore-ecommerce",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "A modern e-commerce platform built with React, Redux Toolkit, and Tailwind CSS",
   "type": "module",
+  "homepage": "https://mystore-demo.netlify.app",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/mystore-ecommerce"
+  },
+  "keywords": [
+    "ecommerce",
+    "react",
+    "redux",
+    "tailwindcss",
+    "fakestore-api"
+  ],
+  "author": "Amirhossein",
+  "license": "MIT",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
+    "test": "echo \"No tests specified yet\"",
+    "test:watch": "npm run test -- --watch"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.9.2",
@@ -30,6 +49,7 @@
     "eslint": "^9.36.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.22",
+    "gh-pages": "^6.3.0",
     "globals": "^16.4.0",
     "postcss": "^8.5.6",
     "tailwindcss": "^3.4.18",

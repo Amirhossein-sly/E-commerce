@@ -1,18 +1,35 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { add } from "../slices/cartSlice";
 import { fetchProduct } from "../slices/ProductSlice";
+import ProductDetailSkeleton from "../components/skeleton/ProductDetailSkeleton";
+import ProductInfo from "../components/product/ProductInfo";
+import ProductSpecs from "../components/product/ProductSpecs";
+import ProductActions from "../components/product/ProductActions";
+import RelatedProducts from "../components/product/RelatedProducts";
+import ReviewsList from "../components/review/ReviewsList";
+import ImageModal from "../components/ui/ImageModal";
 
 export default function ProductDetails() {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const [isImageModalOpen, setIsImageModalOpen] = useState(false);
 
   // گرفتن داده از Redux
   const { data, status } = useSelector((state) => state.product);
+  const cart = useSelector((state) => state.cart);
+  const wishlist = useSelector((state) => state.wishlist);
 
   // محصول فعلی
   const product = data.find((p) => p.id === parseInt(id));
+
+  // بررسی وجود محصول در سبد خرید
+  const cartItem = cart.find((item) => item.id === parseInt(id));
+  const quantityInCart = cartItem ? cartItem.quantity : 0;
+
+  // بررسی وجود محصول در wishlist
+  const isInWishlist = wishlist.some((item) => item.id === parseInt(id));
+
 
   // اگه محصولات هنوز لود نشدن، برو بگیرشون
   useEffect(() => {
@@ -22,7 +39,29 @@ export default function ProductDetails() {
   }, [data, status, dispatch]);
 
   if (status === "LOADING" || !product) {
-    return <h2 className="text-center mt-20 text-lg">Loading...</h2>;
+    return <ProductDetailSkeleton />;
+  }
+
+  if (status === "ERROR") {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[60vh] px-4">
+        <div className="text-center bg-white dark:bg-gray-800 rounded-3xl shadow-lg dark:shadow-gray-900/50 py-16 px-6 space-y-6 max-w-md">
+          <div className="text-6xl">⚠️</div>
+          <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">
+            Product not found
+          </h2>
+          <p className="text-gray-500 dark:text-gray-400">
+            We couldn't find the product you're looking for. It might have been removed or the link might be incorrect.
+          </p>
+          <Link
+            to="/products"
+            className="inline-block px-6 py-3 rounded-xl bg-indigo-600 text-white font-semibold hover:bg-indigo-500 transition"
+          >
+            Browse Products
+          </Link>
+        </div>
+      </div>
+    );
   }
 
   // محصولات مشابه
@@ -31,73 +70,78 @@ export default function ProductDetails() {
     .slice(0, 4);
 
   return (
-    <div className="flex flex-col mt-16 gap-12">
+    <div className="pt-[120px] pb-24 max-w-7xl mx-auto px-4 lg:px-6">
+      {/* Breadcrumb Navigation */}
+      <nav className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-8">
+        <Link to="/" className="hover:text-indigo-600 transition-colors">Home</Link>
+        <span>/</span>
+        <Link to="/products" className="hover:text-indigo-600 transition-colors">Products</Link>
+        <span>/</span>
+        <Link to={`/category/${product.category}`} className="hover:text-indigo-600 transition-colors capitalize">
+          {product.category}
+        </Link>
+        <span>/</span>
+        <span className="text-gray-900 font-medium truncate">{product.title.slice(0, 30)}...</span>
+      </nav>
+
       {/* بخش اصلی */}
-      <div className="flex flex-col md:flex-row gap-12">
+      <div className="flex flex-col lg:flex-row gap-12 mb-16">
         {/* تصویر */}
-        <div className="flex-1 flex justify-center items-center bg-gray-100 rounded-2xl p-8">
-          <img
-            src={product.image}
-            alt={product.title}
-            className="w-80 h-80 object-contain"
+        <div className="lg:flex-1">
+          <div className="sticky top-24 bg-white dark:bg-gray-800 rounded-3xl shadow-lg dark:shadow-gray-900/50 p-8">
+            <div className="relative group">
+              <img
+                src={product.image}
+                alt={product.title}
+                className="w-full max-w-md mx-auto h-96 object-contain rounded-2xl transition-transform duration-300 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition duration-300 rounded-2xl" />
+              <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                <button
+                  onClick={() => setIsImageModalOpen(true)}
+                  className="bg-white/90 backdrop-blur-sm p-2 rounded-full shadow-md hover:bg-white transition-all duration-200 hover:scale-110"
+                  aria-label="Zoom image"
+                >
+                  🔍
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* اطلاعات محصول */}
+        <div className="lg:flex-1">
+          <ProductInfo product={product} />
+
+          <ProductSpecs product={product} />
+
+
+          <ProductActions
+            product={product}
+            productId={parseInt(id)}
+            quantityInCart={quantityInCart}
+            isInWishlist={isInWishlist}
           />
         </div>
-
-        {/* توضیحات */}
-        <div className="flex-1 flex flex-col justify-center">
-          <h1 className="text-3xl font-bold text-gray-800 mb-4">
-            {product.title}
-          </h1>
-
-          <p className="text-gray-600 text-lg leading-relaxed mb-6">
-            {product.description}
-          </p>
-
-          <div className="flex items-center justify-between mb-8">
-            <p className="text-2xl font-semibold text-gray-900">
-              ${product.price}
-            </p>
-            <span className="bg-green-100 text-green-700 px-3 py-1 rounded-lg text-sm font-medium">
-              In Stock
-            </span>
-          </div>
-
-          <div className="flex items-center gap-4">
-            <button
-              onClick={() => dispatch(add(product))}
-              className="bg-black text-white px-8 py-3 rounded-xl text-lg font-semibold hover:bg-gray-800 transition-all"
-            >
-              Add to Cart
-            </button>
-
-            <button className="border border-gray-300 text-gray-800 px-8 py-3 rounded-xl text-lg font-semibold hover:bg-gray-100 transition-all">
-              Buy Now
-            </button>
-          </div>
-        </div>
       </div>
 
-      {/* محصولات مشابه */}
-      <div className="mt-12">
-        <h2 className="text-2xl font-bold mb-6">Related Products</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-          {related.map((item) => (
-            <Link
-              to={`/product/${item.id}`}
-              key={item.id}
-              className="bg-white rounded-2xl shadow-md p-4 flex flex-col items-center hover:scale-105 transition-transform"
-            >
-              <img
-                src={item.image}
-                alt={item.title}
-                className="w-32 h-32 object-contain mb-4"
-              />
-              <h3 className="text-lg font-medium text-center">{item.title}</h3>
-              <p className="text-gray-800 font-semibold mt-2">${item.price}</p>
-            </Link>
-          ))}
-        </div>
+      {/* نظرات مشتریان */}
+      <div className="border-t border-gray-200 dark:border-gray-700 pt-16 mt-16">
+        <ReviewsList productId={parseInt(id)} />
       </div>
+
+      <RelatedProducts
+        products={data}
+        currentProductId={id}
+      />
+
+      {/* Image Modal */}
+      <ImageModal
+        isOpen={isImageModalOpen}
+        onClose={() => setIsImageModalOpen(false)}
+        imageSrc={product?.image}
+        imageAlt={product?.title}
+      />
     </div>
   );
 }

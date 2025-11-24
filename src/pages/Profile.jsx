@@ -40,18 +40,18 @@ export default function Profile() {
   };
 
   return (
-    <div className="max-w-3xl mx-auto px-6 pt-[120px] pb-16">
-      <div className="bg-white rounded-3xl shadow-xl p-8 space-y-6">
+    <div className="max-w-3xl mx-auto px-6 pt-[120px] pb-24">
+      <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-xl dark:shadow-gray-900/50 p-8 space-y-6">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Your profile</h1>
-          <p className="text-gray-500 mt-2">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Your profile</h1>
+          <p className="text-gray-500 dark:text-gray-400 mt-2">
             Update your personal information and shipping details.
           </p>
         </div>
 
         {!isAuthenticated ? (
           <div className="text-center space-y-4 py-12">
-            <p className="text-gray-600">
+            <p className="text-gray-600 dark:text-gray-400">
               برای مشاهده پروفایل ابتدا وارد حساب کاربری خود شوید.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
@@ -63,7 +63,7 @@ export default function Profile() {
               </Link>
               <Link
                 to="/signup"
-                className="px-6 py-3 rounded-xl border border-gray-200 text-gray-800 hover:bg-gray-50 transition"
+                className="px-6 py-3 rounded-xl border border-gray-200 dark:border-gray-600 text-gray-800 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 transition"
               >
                 Create Account
               </Link>
@@ -72,7 +72,7 @@ export default function Profile() {
         ) : (
           <form className="space-y-5" onSubmit={handleSubmit}>
           <div className="flex flex-col gap-2">
-            <label className="text-sm font-medium text-gray-700" htmlFor="name">
+            <label className="text-sm font-medium text-gray-700 dark:text-gray-300" htmlFor="name">
               Full name
             </label>
             <input
@@ -81,12 +81,12 @@ export default function Profile() {
               type="text"
               value={profile.name}
               onChange={handleChange}
-              className="w-full border border-gray-200 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full border border-gray-200 dark:border-gray-600 rounded-xl px-4 py-2.5 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 focus:border-indigo-500 dark:focus:border-indigo-400 hover:border-gray-300 dark:hover:border-gray-500 transition-colors"
             />
           </div>
 
           <div className="flex flex-col gap-2">
-            <label className="text-sm font-medium text-gray-700" htmlFor="email">
+            <label className="text-sm font-medium text-gray-700 dark:text-gray-300" htmlFor="email">
               Email
             </label>
             <input
@@ -95,12 +95,12 @@ export default function Profile() {
               type="email"
               value={profile.email}
               onChange={handleChange}
-              className="w-full border border-gray-200 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full border border-gray-200 dark:border-gray-600 rounded-xl px-4 py-2.5 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 focus:border-indigo-500 dark:focus:border-indigo-400 hover:border-gray-300 dark:hover:border-gray-500 transition-colors"
             />
           </div>
 
           <div className="flex flex-col gap-2">
-            <label className="text-sm font-medium text-gray-700" htmlFor="address">
+            <label className="text-sm font-medium text-gray-700 dark:text-gray-300" htmlFor="address">
               Shipping address
             </label>
             <textarea
@@ -109,7 +109,7 @@ export default function Profile() {
               value={profile.address}
               onChange={handleChange}
               rows={3}
-              className="w-full border border-gray-200 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full border border-gray-200 dark:border-gray-600 rounded-xl px-4 py-2.5 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 focus:border-indigo-500 dark:focus:border-indigo-400 hover:border-gray-300 dark:hover:border-gray-500 transition-colors resize-none"
             />
           </div>
 
